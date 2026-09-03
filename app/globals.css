@@ -1,0 +1,692 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-body), 'Noto Sans', system-ui, sans-serif;
+  --font-heading: var(--font-heading), 'Nunito', system-ui, sans-serif;
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+
+  --color-success: var(--success);
+
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+
+  --color-teal: var(--teal);
+  --color-teal-foreground: var(--teal-foreground);
+
+  --color-whatsapp: var(--whatsapp);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+}
+
+/* =========================================================
+   ROOT THEME
+   ========================================================= */
+
+:root {
+  color-scheme: light;
+
+  --background: #f8fafc;
+  --foreground: #14211c;
+
+  --card: #fffbf5;
+  --card-foreground: #14211c;
+
+  --popover: #ffffff;
+  --popover-foreground: #14211c;
+
+  --primary: #2e7d32;
+  --primary-foreground: #ffffff;
+
+  --secondary: #e6f2e7;
+  --secondary-foreground: #1f5a23;
+
+  --muted: #eef2f5;
+  --muted-foreground: #4b5a55;
+
+  --accent: #0d9488;
+  --accent-foreground: #ffffff;
+
+  --teal: #0d9488;
+  --teal-foreground: #ffffff;
+
+  --destructive: #b91c1c;
+  --destructive-foreground: #ffffff;
+
+  --success: #2e7d32;
+
+  --warning: #d97706;
+  --warning-foreground: #ffffff;
+
+  --whatsapp: #25d366;
+
+  --border: #d9e2dc;
+  --input: #c9d6cf;
+  --ring: #0d9488;
+
+  --chart-1: #2e7d32;
+  --chart-2: #0d9488;
+  --chart-3: #d97706;
+
+  --radius: 1rem;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    font-size: 18px;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: rgba(13, 148, 136, 0.2);
+  }
+}
+
+/* =========================================================
+   GENERAL UTILITIES
+   ========================================================= */
+
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+
+  .touch-target {
+    min-height: 56px;
+    min-width: 56px;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .no-select {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
+/* =========================================================
+   ASHA AVATAR
+   ========================================================= */
+
+/*
+   Main avatar breathing animation.
+
+   Used when Asha is idle.
+*/
+@keyframes asha-breathe {
+  0% {
+    transform: scale(1) translateY(0);
+  }
+
+  50% {
+    transform: scale(1.018) translateY(-2px);
+  }
+
+  100% {
+    transform: scale(1) translateY(0);
+  }
+}
+
+.asha-breathe {
+  animation: asha-breathe 4.8s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+/*
+   Very subtle floating motion.
+*/
+@keyframes asha-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.asha-float {
+  animation: asha-float 5s ease-in-out infinite;
+}
+
+/*
+   Natural head movement.
+
+   Keep this extremely subtle so Asha doesn't
+   look like a bouncing cartoon.
+*/
+@keyframes asha-head {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  35% {
+    transform: rotate(0.45deg);
+  }
+
+  70% {
+    transform: rotate(-0.35deg);
+  }
+}
+
+.asha-head {
+  animation: asha-head 7s ease-in-out infinite;
+  transform-origin: 50% 65%;
+}
+
+/* =========================================================
+   ASHA BLINKING
+   ========================================================= */
+
+/*
+   Apply this to an eye overlay if your avatar
+   contains separate eye elements.
+
+   The long duration creates irregular-looking
+   natural blinking instead of constant blinking.
+*/
+@keyframes asha-blink {
+  0%,
+  43%,
+  46%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  44%,
+  45% {
+    transform: scaleY(0.08);
+  }
+}
+
+.asha-blink {
+  animation: asha-blink 5.8s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/*
+   Second blink timing for the other eye.
+
+   Slightly different duration prevents
+   mechanical synchronization.
+*/
+@keyframes asha-blink-alt {
+  0%,
+  57%,
+  60%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  58%,
+  59% {
+    transform: scaleY(0.08);
+  }
+}
+
+.asha-blink-alt {
+  animation: asha-blink-alt 6.3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* =========================================================
+   ASHA SPEAKING
+   ========================================================= */
+
+/*
+   Speaking uses a slightly stronger breathing movement.
+*/
+@keyframes asha-speaking {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  25% {
+    transform: scale(1.012);
+  }
+
+  50% {
+    transform: scale(1.025);
+  }
+
+  75% {
+    transform: scale(1.008);
+  }
+}
+
+.asha-speaking {
+  animation: asha-speaking 0.9s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/*
+   Voice-reactive glow.
+*/
+@keyframes asha-speaking-glow {
+  0%,
+  100% {
+    transform: scale(0.96);
+    opacity: 0.25;
+  }
+
+  50% {
+    transform: scale(1.08);
+    opacity: 0.55;
+  }
+}
+
+.asha-speaking-glow {
+  animation: asha-speaking-glow 0.8s ease-in-out infinite;
+}
+
+/*
+   Mouth movement.
+
+   This is a visual talking cue. For true phoneme-level
+   lip sync, the avatar needs a separate mouth layer or
+   animated/video avatar.
+*/
+@keyframes asha-mouth {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+    opacity: 0.55;
+  }
+
+  25% {
+    transform: scaleY(0.7);
+    opacity: 0.8;
+  }
+
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+
+  75% {
+    transform: scaleY(0.45);
+    opacity: 0.7;
+  }
+}
+
+.asha-mouth {
+  animation: asha-mouth 0.34s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* =========================================================
+   ASHA LISTENING
+   ========================================================= */
+
+@keyframes asha-listening {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.012);
+  }
+}
+
+.asha-listening {
+  animation: asha-listening 2.2s ease-in-out infinite;
+}
+
+/*
+   Listening rings around the avatar.
+*/
+@keyframes asha-listening-ring {
+  0% {
+    transform: scale(0.88);
+    opacity: 0.65;
+  }
+
+  70% {
+    transform: scale(1.16);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.16);
+    opacity: 0;
+  }
+}
+
+.asha-listening-ring {
+  animation: asha-listening-ring 2s ease-out infinite;
+}
+
+.asha-listening-ring-delay {
+  animation-delay: 0.65s;
+}
+
+/* =========================================================
+   ASHA THINKING
+   ========================================================= */
+
+@keyframes asha-thinking {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+.asha-thinking {
+  animation: asha-thinking 1.4s ease-in-out infinite;
+}
+
+/*
+   Thinking dots.
+*/
+@keyframes asha-thinking-dot {
+  0%,
+  70%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+
+  35% {
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+}
+
+.asha-thinking-dot {
+  animation: asha-thinking-dot 1.2s ease-in-out infinite;
+}
+
+.asha-thinking-dot:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.asha-thinking-dot:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* =========================================================
+   ASHA SAFETY STATE
+   ========================================================= */
+
+@keyframes asha-safety {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.018);
+  }
+}
+
+.asha-safety {
+  animation: asha-safety 1.5s ease-in-out infinite;
+}
+
+/*
+   Safety warning pulse.
+*/
+@keyframes asha-safety-pulse {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.55;
+  }
+
+  70% {
+    transform: scale(1.12);
+    opacity: 0;
+  }
+
+  100% {
+    transform: scale(1.12);
+    opacity: 0;
+  }
+}
+
+.asha-safety-pulse {
+  animation: asha-safety-pulse 1.8s ease-out infinite;
+}
+
+/* =========================================================
+   ASHA VOICE WAVE
+   ========================================================= */
+
+@keyframes asha-wave {
+  0%,
+  100% {
+    transform: scaleY(0.25);
+  }
+
+  25% {
+    transform: scaleY(0.7);
+  }
+
+  50% {
+    transform: scaleY(1);
+  }
+
+  75% {
+    transform: scaleY(0.45);
+  }
+}
+
+.asha-wave {
+  animation: asha-wave 0.75s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.asha-wave:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.asha-wave:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.asha-wave:nth-child(4) {
+  animation-delay: 0.24s;
+}
+
+.asha-wave:nth-child(5) {
+  animation-delay: 0.32s;
+}
+
+/* =========================================================
+   ORIGINAL ASHA PULSE
+   ========================================================= */
+
+@keyframes asha-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.6);
+    opacity: 0.4;
+  }
+}
+
+.animate-asha-pulse {
+  animation: asha-pulse 1.8s ease-in-out infinite;
+}
+
+/* =========================================================
+   SOUNDWAVE
+   ========================================================= */
+
+@keyframes soundwave {
+  0%,
+  100% {
+    transform: scaleY(0.4);
+  }
+
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.animate-soundwave {
+  animation: soundwave 0.9s ease-in-out infinite;
+}
+
+/* =========================================================
+   SOFT STATUS GLOW
+   ========================================================= */
+
+@keyframes asha-soft-glow {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.96);
+  }
+
+  50% {
+    opacity: 0.7;
+    transform: scale(1.04);
+  }
+}
+
+.asha-soft-glow {
+  animation: asha-soft-glow 2.5s ease-in-out infinite;
+}
+
+/* =========================================================
+   AVATAR IMAGE
+   ========================================================= */
+
+.asha-avatar-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  user-select: none;
+  -webkit-user-drag: none;
+  backface-visibility: hidden;
+}
+
+/*
+   Prevent blurry rendering while animated.
+*/
+.asha-avatar-container {
+  isolation: isolate;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .asha-breathe,
+  .asha-float,
+  .asha-head,
+  .asha-blink,
+  .asha-blink-alt,
+  .asha-speaking,
+  .asha-speaking-glow,
+  .asha-mouth,
+  .asha-listening,
+  .asha-listening-ring,
+  .asha-thinking,
+  .asha-thinking-dot,
+  .asha-safety,
+  .asha-safety-pulse,
+  .asha-wave,
+  .animate-asha-pulse,
+  .animate-soundwave,
+  .asha-soft-glow {
+    animation: none !important;
+  }
+}
